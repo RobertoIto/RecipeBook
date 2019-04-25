@@ -1,8 +1,18 @@
 <div class="row">
   <div class="col-md-5">
-    <app-recipe-list></app-recipe-list>
+    <!-- The recipeWasSelected is an @Ouput() from recipe-list.component
+      and it is passing the recipe selected, instead of using an
+      event to get the recipe, we are using a different approach,
+      which is passing the recipe to a variable -->
+    <app-recipe-list (recipeWasSelected)="selectedRecipe = $event"></app-recipe-list>
   </div>
   <div class="col-md-7">
-    <app-recipe-detail></app-recipe-detail>
+    <app-recipe-detail
+      *ngIf="selectedRecipe; else infoText"
+      [recipe]="selectedRecipe"
+    ></app-recipe-detail>
+    <ng-template #infoText>
+      <p>Please select a Recipe!</p>
+    </ng-template>
   </div>
 </div>

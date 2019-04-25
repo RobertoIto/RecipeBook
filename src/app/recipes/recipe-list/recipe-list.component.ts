@@ -9,7 +9,9 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeListComponent implements OnInit {
   recipes: Recipe[] = [
+    // tslint:disable-next-line:max-line-length
     new Recipe('Recipe 1', 'desc 1', 'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/lighten-up-america/pasta-vodka-cream-sauce-ck-x.jpg?itok=eXI12jm5'),
+    // tslint:disable-next-line:max-line-length
     new Recipe('Recipe 2', 'desc 2', 'https://bmexdi064h-flywheel.netdna-ssl.com/wp-content/uploads/2018/11/Roasted-Turkey-Breast-foodiecrush.com-025.jpg')
   ];
 

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand">Recipe Book</a>
+      <a class="navbar-brand">Recipe Book</a>
     </div>
 
     <!-- The collapse will not work for small screens so I changed for -->
@@ -9,17 +9,22 @@
     <!-- <div class="collapse navbar-collapse"> -->
     <div class="navbar-default">
       <ul class="nav navbar-nav">
-        <li><a href="#" (click)="onSelect('recipe')">Recipes</a></li>
-        <li><a href="#" (click)="onSelect('shopping')">Shopping List</a></li>
+        <!-- The routerLink call the path and the routerLinkActive
+          mark the active link, it is equal active because this is
+          the bootstrap class="active" that give us the effect.
+          The routerLinkActive is in the <li> because in the <a> only
+          the text changes, and it is very sutil. -->
+        <li routerLinkActive="active"><a [routerLink]="['/recipes']">Recipes</a></li>
+        <li routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown" appDropdown>
-          <a href="#" class="dropdown-toogle" role="button">
+          <a class="dropdown-toogle" role="button" style="cursor: pointer;" >
             Manage  <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Save Data</a></li>
-            <li><a href="#">Fetch Data</a></li>
+            <li><a style="cursor: pointer;">Save Data</a></li>
+            <li><a style="cursor: pointer;">Fetch Data</a></li>
           </ul>
         </li>
       </ul>

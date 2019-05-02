@@ -2,9 +2,11 @@
   we do not need to pass any parameter because the parent component
   recipe-list.component is already performing a loop of the recipes
   so it is not needed a parameter -->
-<a href="#"
+<a [routerLink]="[index]"
+  routerLinkActive="active"
+  style="cursor: pointer;"
   class="list-group-item clearfix"
-  (click)="onSelected()">
+>
   <div class="pull-left">
     <h4 class="list-group-item-heading">{{ rec.name }}</h4>
     <p class="list-group-item-text">{{ rec.description }}</p>

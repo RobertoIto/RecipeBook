@@ -5,17 +5,25 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
   token: string;
+  email: string;
 
   constructor(private router: Router) {}
 
   signupUser(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(
+        response => {
+          this.signinUser(email, password);
+        }
+      )
       .catch(
         error => console.log(error)
       );
   }
 
   signinUser(email: string, password: string) {
+    this.email = email;
+
     // Here we can get the token in this promise. We will wait for
     // the response to arrive and pass it to the this.token.
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -47,6 +55,12 @@ export class AuthService {
         (token: string) => this.token = token
       );
     return this.token;
+  }
+
+  getUserEmailAlpha() {
+    const alpha = this.email.replace(/[^0-9A-Z]+/gi, '');
+
+    return alpha;
   }
 
   isAuthenticated() {

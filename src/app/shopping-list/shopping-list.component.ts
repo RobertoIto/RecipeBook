@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 import { Subscription, Subject } from 'rxjs';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -13,9 +14,13 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[] = [];
   susbcript: Subscription;
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
+    // Get the ingredients data from the database
+    this.dataStorageService.getShoppingList();
+
     // Here we populate the ingredients with the ingredients array.
     this.ingredients = this.shoppingListService.getIngredients();
 

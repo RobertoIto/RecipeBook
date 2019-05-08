@@ -4,6 +4,7 @@ import { Ingredient } from '../../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -19,7 +20,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   ingr = {name: '', amount: ''};
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private shoppingListService: ShoppingListService,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
     this.subscription =
@@ -46,6 +48,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     } else {
       this.shoppingListService.addIngredient(newIngredient);
     }
+
+    // Store the data into the database.
+    this.dataStorageService.storeShoppingList().subscribe(
+      (response) => console.log(response),
+      (error)  => console.log(error)
+    );
+
     this.onClear();
   }
 

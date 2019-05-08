@@ -79,7 +79,11 @@ export class DataStorageService {
       ))
       .subscribe(
         (ingr: Ingredient[]) => {
-          this.shoppingListService.fetchIngredients(ingr);
+          if (ingr) {
+            this.shoppingListService.fetchIngredients(ingr);
+          } else {
+            this.shoppingListService.fetchIngredients([]);
+          }
         }
       );
   }

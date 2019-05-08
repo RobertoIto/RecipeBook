@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -19,8 +20,8 @@ export class RecipeService implements OnInit {
       // tslint:disable-next-line:max-line-length
       'https://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/lighten-up-america/pasta-vodka-cream-sauce-ck-x.jpg?itok=eXI12jm5',
       [
-        new Ingredient('pasta', 5),
-        new Ingredient('tomato', 4)
+        new Ingredient('pasta', 5, 'testtestcom'),
+        new Ingredient('tomato', 4, 'testtestcom')
       ]
     ),
     new Recipe(
@@ -29,13 +30,14 @@ export class RecipeService implements OnInit {
       // tslint:disable-next-line:max-line-length
       'https://bmexdi064h-flywheel.netdna-ssl.com/wp-content/uploads/2018/11/Roasted-Turkey-Breast-foodiecrush.com-025.jpg',
       [
-        new Ingredient('chicken breast', 4),
-        new Ingredient('salt', 1)
+        new Ingredient('chicken breast', 4, 'testtestcom'),
+        new Ingredient('salt', 1, 'testtestcom')
       ]
     )
   ];
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(private shoppingListService: ShoppingListService,
+              private authService: AuthService) {}
 
   ngOnInit() {
 
@@ -55,6 +57,11 @@ export class RecipeService implements OnInit {
   }
 
   addRecipe(recipe: Recipe) {
+    // If the userEmail property is empty, add the auth user email.
+    if (!recipe.userEmail) {
+      recipe.userEmail = this.authService.getUserEmailAlpha();
+    }
+
     const index = this.recipes.push(recipe);
     // We are pushing to the array recipe and then we return a
     // copy to the subject recipesChanged. This is an observer so
@@ -64,6 +71,11 @@ export class RecipeService implements OnInit {
   }
 
   updateRecipe(index: number, newRecipe: Recipe) {
+    // If the userEmail property is empty, add the auth user email.
+    if (!newRecipe.userEmail) {
+      newRecipe.userEmail = this.authService.getUserEmailAlpha();
+    }
+
     this.recipes[index] = newRecipe;
     // We are pushing to the array recipe and then we return a
     // copy to the subject recipesChanged. This is an observer so
@@ -83,4 +95,5 @@ export class RecipeService implements OnInit {
     this.recipes = rec;
     this.recipesChanged.next(this.recipes.slice());
   }
+
 }

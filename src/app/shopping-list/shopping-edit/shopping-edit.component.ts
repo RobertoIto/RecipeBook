@@ -5,6 +5,7 @@ import { ShoppingListService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -21,7 +22,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   ingr = {name: '', amount: ''};
 
   constructor(private shoppingListService: ShoppingListService,
-              private dataStorageService: DataStorageService) { }
+              private dataStorageService: DataStorageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.subscription =
@@ -40,9 +42,12 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   }
 
   onAddItem() {
+    const email = this.authService.getUserEmailAlpha();
+
     const frmValue = this.shopEdtForm;
     const newIngredient = new Ingredient(frmValue.value.name,
-                                         frmValue.value.amount);
+                                         frmValue.value.amount,
+                                         email);
     if (this.editMode) {
       this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient);
     } else {

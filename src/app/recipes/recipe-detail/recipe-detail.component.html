@@ -22,8 +22,12 @@
       </button>
       <ul class="dropdown-menu">
         <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">Send ingredients to Shopping List</a></li>
-        <li><a [routerLink]="['edit']" style="cursor: pointer;">Edit Recipe</a></li>
-        <li><a style="cursor: pointer;" (click)="onDelete()">Delete Recipe</a></li>
+        <li><a [routerLink]="['edit']"
+              style="cursor: pointer;"
+              *ngIf="canEditDelete()">Edit Recipe</a></li>
+        <li><a style="cursor: pointer;"
+              (click)="onDelete()"
+              *ngIf="canEditDelete()">Delete Recipe</a></li>
       </ul>
     </div>
   </div>

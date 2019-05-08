@@ -4,6 +4,7 @@ import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -17,7 +18,8 @@ export class RecipeDetailComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
               private router: Router,
-              private dataStorageService: DataStorageService) { }
+              private dataStorageService: DataStorageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     // Created this subscription to listen when the recipe selection
@@ -46,5 +48,14 @@ export class RecipeDetailComponent implements OnInit {
     );
 
     this.router.navigate(['/recipes']);
+  }
+
+  canEditDelete() {
+    const authUserEmail = this.authService.getUserEmailAlpha();
+
+    if (this.recipe.userEmail === authUserEmail) {
+      return true;
+    }
+    return false;
   }
 }

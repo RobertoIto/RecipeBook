@@ -8,8 +8,13 @@
           type="email"
           id="email"
           name="email"
-          ngModel>
+          ngModel
+          required
+          #email="ngModel">
       </div>
+      <span class="help-block" *ngIf="!email.valid && email.touched">
+        Please enter a valid email.
+      </span>
 
       <div class="form-group">
         <label for="password">Password</label>
@@ -18,9 +23,19 @@
           type="password"
           id="password"
           name="password"
-          ngModel>
+          ngModel
+          required
+          #password="ngModel">
       </div>
+      <span class="help-block" *ngIf="!password.valid && password.touched">
+        Please enter a valid password.
+      </span>
 
+      <span class="help-block" *ngIf="error !== '' && f.valid">
+        {{ error }}
+      </span>
+
+      <br>
       <button class="btn btn-primary" type="submit">Login</button>
     </form>
   </div>

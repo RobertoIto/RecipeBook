@@ -3,14 +3,39 @@
     <form (ngSubmit)="onSignUp(f)" #f="ngForm">
       <div class="form-group">
         <label for="email">Mail</label>
-        <input class="form-control" type="email" id="email" name="email" ngModel>
+        <input
+          class="form-control"
+          type="email"
+          id="email"
+          name="email"
+          ngModel
+          required
+          #email="ngModel">
       </div>
+      <span class="help-block" *ngIf="!email.valid && email.touched">
+        Please enter a valid email.
+      </span>
 
       <div class="form-group">
         <label for="password">Password</label>
-        <input class="form-control" type="password" id="password" name="password" ngModel>
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          name="password"
+          ngModel
+          required
+          #password="ngModel">
       </div>
+      <span class="help-block" *ngIf="!password.valid && password.touched">
+        Please enter a valid password.
+      </span>
 
+      <span class="help-block" *ngIf="error !== '' && f.valid">
+        {{ error }}
+      </span>
+
+      <br>
       <button class="btn btn-primary" type="submit">Sign Up</button>
     </form>
   </div>

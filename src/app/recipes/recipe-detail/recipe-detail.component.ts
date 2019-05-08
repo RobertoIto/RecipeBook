@@ -50,7 +50,7 @@ export class RecipeDetailComponent implements OnInit {
 
     // Save the data into the database
     this.dataStorageService.storeShoppingList().subscribe(
-      (response) => console.log(response),
+      (response) => {}, // console.log(response),
       (error)  => console.log(error)
     );
   }
@@ -60,7 +60,7 @@ export class RecipeDetailComponent implements OnInit {
 
     // Store the data into the database.
     this.dataStorageService.storeRecipes().subscribe(
-      (response) => console.log(response),
+      (response) => {}, // console.log(response),
       (error)  => console.log(error)
     );
 

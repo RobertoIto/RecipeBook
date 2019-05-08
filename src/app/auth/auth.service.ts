@@ -1,11 +1,13 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   token: string;
   email: string;
+  error = new Subject<string>();
 
   constructor(private router: Router) {}
 
@@ -14,10 +16,14 @@ export class AuthService {
       .then(
         response => {
           this.signinUser(email, password);
+          this.error.next(null);
         }
       )
       .catch(
-        error => console.log(error)
+        err => {
+          this.error.next(err);
+          // console.log(this.error);
+        }
       );
   }
 
@@ -34,10 +40,15 @@ export class AuthService {
             .then(
               (token: string) => this.token = token
             );
+
+          this.error.next(null);
         }
       )
       .catch(
-        error => console.log(error)
+        err => {
+          this.error.next(err);
+          // console.log(this.error);
+        }
       );
   }
 

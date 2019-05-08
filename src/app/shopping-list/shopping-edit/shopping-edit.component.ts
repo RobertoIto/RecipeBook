@@ -35,8 +35,9 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
           this.shopEdtForm.setValue({
             name: this.editedItem.name,
-            amount: this.editedItem.amount
-          })
+            amount: this.editedItem.amount,
+            unit: this.editedItem.unit
+          });
         }
       );
   }
@@ -47,6 +48,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const frmValue = this.shopEdtForm;
     const newIngredient = new Ingredient(frmValue.value.name,
                                          frmValue.value.amount,
+                                         frmValue.value.unit,
                                          email);
     if (this.editMode) {
       this.shoppingListService.updateIngredient(this.editedItemIndex, newIngredient);

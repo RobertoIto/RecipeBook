@@ -34,6 +34,22 @@
             Please enter a valid amount!
           </span>
         </div>
+
+        <div class="col-sm-2 form-group">
+            <label for="unit">Unit</label>
+            <input
+              type="string"
+              id="unit"
+              class="form-control"
+              ngModel
+              name="unit"
+              required
+              #unitInput="ngModel"
+            >
+            <span class="help-block" *ngIf="!unitInput.valid && unitInput.touched">
+              Please enter a valid unit!
+            </span>
+          </div>
       </div>
 
       <div class="row">

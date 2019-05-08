@@ -1,3 +1,4 @@
+<br>
 <div class="row">
   <div class="col-xs-12">
     <img
@@ -32,16 +33,21 @@
     </div>
   </div>
 </div>
+<br>
 <div class="row">
   <div class="col-xs-12">
-    {{ recipe.description }}
+    <div class="form-group">
+      <textarea name="description" class="form-control" rows="6">
+        {{ recipe.description }}
+      </textarea>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let ingr of recipe.ingredients">
-        {{ ingr.name }} - {{ ingr.amount }}
+        {{ ingr.name }} - ( {{ ingr.amount }} - {{ ingr.unit }} )
       </li>
     </ul>
   </div>

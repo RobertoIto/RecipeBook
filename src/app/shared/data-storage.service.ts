@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { RecipeService } from '../recipes/recipe.service';
-import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
 import { Recipe } from '../recipes/recipe.model';
-import { RecipesComponent } from '../recipes/recipes.component';
 import { AuthService } from '../auth/auth.service';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Ingredient } from './ingredient.model';

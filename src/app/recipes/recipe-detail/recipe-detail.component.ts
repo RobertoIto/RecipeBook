@@ -5,6 +5,7 @@ import { RecipeService } from '../recipe.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -19,6 +20,7 @@ export class RecipeDetailComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private dataStorageService: DataStorageService,
+              private shoppingListService: ShoppingListService,
               private authService: AuthService) { }
 
   ngOnInit() {
@@ -33,8 +35,23 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onAddToShoppingList() {
-    this.recipeService.addIngredientsToShoppingList(
+    // When adding a new recipe the ingredients come without the
+    // userEmail property, because we got this from the FormControls
+    // so here we will add this information to all ingredients.
+    for (let ingr of this.recipe.ingredients) {
+      if (!ingr.userEmail) {
+        ingr.userEmail = this.authService.getUserEmailAlpha();
+      }
+    }
+
+    this.shoppingListService.addIngredients(
       this.recipe.ingredients
+    );
+
+    // Save the data into the database
+    this.dataStorageService.storeShoppingList().subscribe(
+      (response) => console.log(response),
+      (error)  => console.log(error)
     );
   }
 

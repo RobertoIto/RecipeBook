@@ -1,0 +1,55 @@
+import * as firebase from 'firebase';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Injectable()
+export class AuthService {
+  token: string;
+
+  constructor(private router: Router) {}
+
+  signupUser(email: string, password: string) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .catch(
+        error => console.log(error)
+      );
+  }
+
+  signinUser(email: string, password: string) {
+    // Here we can get the token in this promise. We will wait for
+    // the response to arrive and pass it to the this.token.
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(
+        response => {
+          this.router.navigate(['/']);
+          firebase.auth().currentUser.getIdToken()
+            .then(
+              (token: string) => this.token = token
+            );
+        }
+      )
+      .catch(
+        error => console.log(error)
+      );
+  }
+
+  logoutUser() {
+    firebase.auth().signOut();
+    this.token = null;
+  }
+
+  // Here we run the get token again but we won't wait it to finish
+  // and return the this.token.
+  // This is a quick solution that will work for the most user cases.
+  getIdToken() {
+    firebase.auth().currentUser.getIdToken()
+      .then(
+        (token: string) => this.token = token
+      );
+    return this.token;
+  }
+
+  isAuthenticated() {
+    return this.token != null;
+  }
+}

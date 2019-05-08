@@ -1,0 +1,17 @@
+button {
+  margin: 2px;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.image-preview {
+  height: 30rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}

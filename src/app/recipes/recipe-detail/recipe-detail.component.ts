@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,7 +15,9 @@ export class RecipeDetailComponent implements OnInit {
   index: number;
 
   constructor(private recipeService: RecipeService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
     // Created this subscription to listen when the recipe selection
@@ -31,5 +34,17 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.addIngredientsToShoppingList(
       this.recipe.ingredients
     );
+  }
+
+  onDelete() {
+    this.recipeService.deleteRecipe(this.index);
+
+    // Store the data into the database.
+    this.dataStorageService.storeRecipes().subscribe(
+      (response) => console.log(response),
+      (error)  => console.log(error)
+    );
+
+    this.router.navigate(['/recipes']);
   }
 }

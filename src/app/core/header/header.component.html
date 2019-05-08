@@ -1,0 +1,51 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Recipe Book</a>
+    </div>
+
+    <!-- The collapse will not work for small screens so I changed for -->
+    <!-- the navbar-default -->
+    <!-- <div class="collapse navbar-collapse"> -->
+    <div class="navbar-default">
+      <ul class="nav navbar-nav">
+        <ng-template [ngIf]="isAuthenticated()">
+          <!-- The routerLink call the path and the routerLinkActive
+            mark the active link, it is equal active because this is
+            the bootstrap class="active" that give us the effect.
+            The routerLinkActive is in the <li> because in the <a> only
+            the text changes, and it is very sutil. -->
+          <li routerLinkActive="active"><a [routerLink]="['/recipes']">Recipes</a></li>
+          <li routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping List</a></li>
+        </ng-template>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a routerLink="/signin"
+            *ngIf="!isAuthenticated()">Login</a>
+        </li>
+        <li>
+          <a style="cursor: pointer"
+            (click)="onLogout()"
+            *ngIf="isAuthenticated()"
+            [routerLink]="['/signin']">Logout</a>
+        </li>
+        <li>
+          <a routerLink="/signup"
+            *ngIf="!isAuthenticated()">Register</a>
+        </li>
+
+        <!-- <li class="dropdown" appDropdown [ngIf]="isAuthenticated()">
+          <a class="dropdown-toogle" role="button" style="cursor: pointer;" >
+            Manage  <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
+            <li><a style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a></li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+

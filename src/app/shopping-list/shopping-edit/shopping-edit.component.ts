@@ -58,7 +58,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
     // Store the data into the database.
     this.dataStorageService.storeShoppingList().subscribe(
-      (response) => console.log(response),
+      (response) => {}, // console.log(response),
       (error)  => console.log(error)
     );
 
@@ -67,6 +67,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.shoppingListService.deleteIngredient(this.editedItemIndex);
+
+    // Store the data into the database.
+    this.dataStorageService.storeShoppingList().subscribe(
+      (response) => {}, // console.log(response),
+      (error)  => console.log(error)
+    );
+
     this.onClear();
   }
 

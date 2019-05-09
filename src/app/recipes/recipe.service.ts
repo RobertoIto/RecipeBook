@@ -36,8 +36,7 @@ export class RecipeService implements OnInit {
     )
   ];
 
-  constructor(private shoppingListService: ShoppingListService,
-              private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
 

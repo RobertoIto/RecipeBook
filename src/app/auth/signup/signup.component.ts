@@ -16,7 +16,11 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    // For a subject subscribe is the method to consume the parameter.
+    // Subscribe to the subject (observable) into the authService to
+    // get the error messages. We need a subscription to get the
+    // error after the database answered, and this is not synchronous
+    // so we need an observable. When the error message changes it
+    // will dynamically update the HTML.
     this.susbcription =
       this.authService.error.subscribe(
         (err: string) => {

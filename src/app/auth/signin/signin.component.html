@@ -31,6 +31,9 @@
         Please enter a valid password.
       </span>
 
+      <!-- We created a simple variable error that gets the error
+        message from the database into the authService through
+        a subject subscription -->
       <span class="help-block" *ngIf="error !== '' && f.valid">
         {{ error }}
       </span>

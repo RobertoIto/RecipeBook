@@ -7,10 +7,20 @@ import { Subject } from 'rxjs';
 export class AuthService {
   token: string;
   email: string;
+
+  // A subject variable of type string is created to keep the
+  // error messages from the signup and login procedures.
   error = new Subject<string>();
 
   constructor(private router: Router) {}
 
+  // The signup user call the firebase create user function,
+  // waits for the response (.then) or an error (.catch).
+  // Our subject variable is triggered to get the authentication
+  // methods. The .next push the values to the subject variable.
+  // If we use simple variables it is possible to get the messages.
+  // However, we need an observable into the other component to
+  // get these messages and present them into the HTML file.
   signupUser(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(
@@ -27,6 +37,9 @@ export class AuthService {
       );
   }
 
+  // The signin user call the firebase signin user function,
+  // waits for the response (.then) or an error (.catch).
+  // The comments about the subject is the same as above.
   signinUser(email: string, password: string) {
     this.email = email;
 
